@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {}
+
+/* Full height for layout */
+html, body, #root {
+  height: 100%;
+}
+
+/* Typography setup */
+body { 
+  @apply bg-[var(--bg)] text-[var(--fg)] antialiased;
+  font-family: 'Poppins', 'Lato', ui-sans-serif, system-ui, -apple-system, 
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Container utility */
+.container { 
+  @apply max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8; 
+}
+
+/* Buttons */
+.btn-primary { 
+  @apply inline-flex items-center gap-2 bg-primary text-white px-5 py-3 
+    rounded-xl font-semibold shadow; 
+}
+
+/* Muted text */
+.text-muted { 
+  color: rgba(255, 255, 255, 0.75); 
+}
+
+/* Prose */
+.prose { 
+  color: var(--fg); 
+}
