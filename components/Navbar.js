@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Navbar() {
           href="/"
           className="flex items-center gap-3 font-bold text-xl text-gray-900"
         >
-          <div className="w-18 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-semibold shadow">
+          <div className="w-18 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-semibold shadow-md">
             DMA
           </div>
           <span className="tracking-tight">Dr. Manpreet Ayurveda</span>
@@ -42,48 +43,57 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800"
+          className="md:hidden text-gray-800 hover:text-emerald-600 transition"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Mobile Dropdown */}
-      {isOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200 shadow-lg">
-          <nav className="flex flex-col gap-4 px-6 py-6 text-gray-800 font-medium">
-            <Link
-              href="/services"
-              className="hover:text-emerald-600 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              Services
-            </Link>
-            <Link
-              href="/blog"
-              className="hover:text-emerald-600 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/about"
-              className="hover:text-emerald-600 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              href="/consultation"
-              className="px-5 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-700 transition text-center shadow"
-              onClick={() => setIsOpen(false)}
-            >
-              Book Consultation
-            </Link>
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200 shadow-lg overflow-hidden"
+          >
+            <nav className="flex flex-col gap-4 px-6 py-6 text-gray-800 font-medium">
+              <Link
+                href="/services"
+                className="hover:text-emerald-600 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                Services
+              </Link>
+              <Link
+                href="/blog"
+                className="hover:text-emerald-600 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/about"
+                className="hover:text-emerald-600 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/consultation"
+                className="px-5 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-700 transition text-center shadow"
+                onClick={() => setIsOpen(false)}
+              >
+                Book Consultation
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
